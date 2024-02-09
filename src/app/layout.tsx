@@ -8,19 +8,19 @@ import { RootLayout } from 'modules/layouts/RootLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const siteName = 'Ronny Rook';
-const siteUrl = 'https://rnny.nl';
+const siteName = 'Realtime scrum voter';
+const siteUrl = 'https://realtime-scrum-voter.nl';
 
 export const metadata = {
   title: {
-    default: `About me | ${siteName}`,
+    default: `Home | ${siteName}`,
     template: `%s | ${siteName}`,
   },
-  description: 'Javascript developer from Amsterdam',
+  description: 'realtime-scrum-voter',
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: siteName,
-    description: 'Javascript developer from Amsterdam',
+    description: 'realtime-scrum-voter',
     url: siteUrl,
     siteName,
     images: [
@@ -66,7 +66,7 @@ const Layout = ({ children }: Props) => {
   return (
     <html
       lang="en"
-      className={cn('text-black bg-white dark:text-white dark:bg-[#111111]', inter.className)}
+      className={cn('text-white bg-[#111111]', inter.className)}
     >
       <head />
       <RootLayout>{children}</RootLayout>
