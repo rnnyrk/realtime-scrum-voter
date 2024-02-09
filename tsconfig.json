@@ -28,6 +28,8 @@
       "images/*": ["public/images/*"],
       "styles": ["src/styles/index"],
       "styles/*": ["src/styles/*"],
+      "store": ["src/store/index"],
+      "store/*": ["src/store/*"],
       "utils": ["src/utils"],
       "utils/*": ["src/utils/*"],
       "queries/*": ["src/queries/*"],
