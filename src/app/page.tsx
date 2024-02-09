@@ -1,20 +1,29 @@
-import { Button } from 'common/interaction/Button';
+'use client';
+
 import { Lane } from 'common/layout/Lane';
+import { AddCardModal } from 'modules/modals/AddCardModal';
 
 const Home = () => {
   return (
     <section className="w-full flex justify-center py-4 space-x-2">
-      <Lane.Container title="Good" />
-      <Lane.Container title="Bad" />
-      <Lane.Container title="Actions" />
-      <Lane.Container title="Ideas" />
+      <Lane.Container
+        title="Good"
+        category="good"
+      />
+      <Lane.Container
+        title="Bad"
+        category="bad"
+      />
+      <Lane.Container
+        title="Actions"
+        category="actions"
+      />
+      <Lane.Container
+        title="Ideas"
+        category="ideas"
+      />
 
-      <Button
-        variant="secondary"
-        className="fixed bottom-4 left-2/4 -translate-x-2/4"
-      >
-        Add user story
-      </Button>
+      <AddCardModal />
     </section>
   );
 };

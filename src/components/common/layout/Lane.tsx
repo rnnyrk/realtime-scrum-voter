@@ -1,3 +1,5 @@
+'use client';
+
 import type * as i from 'types';
 
 import { useCategoryData } from 'store/categories';

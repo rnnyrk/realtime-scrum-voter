@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Realtime scrum voter",
+    "short_name": "voter",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
