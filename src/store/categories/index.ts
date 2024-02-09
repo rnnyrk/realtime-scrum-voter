@@ -9,13 +9,12 @@ type CategoriesStore = {
 export const useCategoriesStore = create<CategoriesStore>()((set) => ({
   data: null,
   setData(data) {
-    set((state) => {
-      state.data = {
+    set((state) => ({
+      data: {
         ...state.data,
         ...data,
-      };
-      return state;
-    });
+      },
+    }));
   },
 }));
 
