@@ -1,7 +1,11 @@
 'use client';
 
+import type * as i from 'types';
 import { useForm } from 'react-hook-form';
 
+import { ComboboxForm } from 'common/form/Combobox';
+import { Form, FormField } from 'common/form/Form';
+import { InputForm } from 'common/form/Input';
 import { Button } from 'common/interaction/Button';
 import {
   Dialog,
@@ -12,15 +16,13 @@ import {
 } from 'common/interaction/Dialog';
 
 export type AddCardModalValues = {
-  order: number;
+  category: i.Categories;
+  title: string;
+  description?: string;
 };
 
 export function AddCardModal() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AddCardModalValues>();
+  const form = useForm<AddCardModalValues>();
 
   function onSubmit(data: AddCardModalValues) {
     console.log(data);
@@ -36,23 +38,67 @@ export function AddCardModal() {
           Add user story
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[600px] bg-solidtecBlack p-0 overflow-hidden">
+      <DialogContent className="min-w-[600px] p-8 bg-blackOff overflow-hidden">
         <DialogHeader>
-          <DialogTitle>Change selected block</DialogTitle>
+          <DialogTitle>Add a new user story</DialogTitle>
         </DialogHeader>
 
-        <form
-          className="pt-4 pb-8 px-8"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Button
-            type="submit"
-            className="mt-8"
-            disabled={Object.keys(errors).length > 0}
-          >
-            Edit
-          </Button>
-        </form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => {
+                return (
+                  <ComboboxForm
+                    className="mb-4"
+                    label="Category *"
+                    field={field}
+                    options={[
+                      { label: 'Good', value: 'good' },
+                      { label: 'Bad', value: 'bad' },
+                      { label: 'Actions', value: 'actions' },
+                      { label: 'Ideas', value: 'ideas' },
+                    ]}
+                  />
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => {
+                return (
+                  <InputForm
+                    className="mb-4"
+                    label="Title *"
+                    field={field}
+                  />
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => {
+                return (
+                  <InputForm
+                    label="Description"
+                    field={field}
+                  />
+                );
+              }}
+            />
+
+            <Button
+              type="submit"
+              className="mt-8"
+              disabled={Object.keys(form.formState.errors).length > 0}
+            >
+              Add card
+            </Button>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

@@ -16,9 +16,12 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.0.5",
+    "@radix-ui/react-label": "2.0.2",
+    "@radix-ui/react-popover": "1.0.7",
     "@radix-ui/react-slot": "1.0.2",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.0",
+    "cmdk": "0.2.1",
     "next": "14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -53,9 +56,9 @@
     "postcss": "8.4.35",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.11",
-    "tailwindcss-animate": "1.0.7",
     "tailwind-merge": "2.2.1",
     "tailwindcss": "3.4.1",
+    "tailwindcss-animate": "1.0.7",
     "typescript": "5.3.3",
     "webpack": "5.90.1"
   },
