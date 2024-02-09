@@ -18,3 +18,9 @@ export const useCategoriesStore = create<CategoriesStore>()((set) => ({
     });
   },
 }));
+
+export function useCategoryData(category: i.Categories) {
+  return useCategoriesStore((state) => {
+    return state.data?.[category];
+  });
+}

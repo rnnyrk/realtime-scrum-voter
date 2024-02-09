@@ -1,7 +1,12 @@
+import type * as i from 'types';
+
+import { useCategoryData } from 'store/categories';
 import { cn } from 'utils';
 import { Heading } from 'common/typography/Heading';
 
-const LaneContainer = ({ className, children, title }: LaneContainerType) => {
+const LaneContainer = ({ className, children, category, title }: LaneContainerType) => {
+  const categoryData = useCategoryData(category);
+
   return (
     <div className={cn(`flex flex-col flex-1 p-0`, className)}>
       <Heading
@@ -10,6 +15,15 @@ const LaneContainer = ({ className, children, title }: LaneContainerType) => {
       >
         {title}
       </Heading>
+
+      {categoryData && (
+        <div className="flex-1 overflow-y-auto">
+          {categoryData.map((item, index) => (
+            <Lane.Item key={`item_${category}_${index}`}>{item.title}</Lane.Item>
+          ))}
+        </div>
+      )}
+
       {children}
     </div>
   );
@@ -18,6 +32,7 @@ const LaneContainer = ({ className, children, title }: LaneContainerType) => {
 type LaneContainerType = {
   className?: string;
   children?: React.ReactNode;
+  category: i.Categories;
   title: string;
 };
 
