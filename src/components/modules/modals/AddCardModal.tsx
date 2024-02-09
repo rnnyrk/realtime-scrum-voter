@@ -1,7 +1,9 @@
 'use client';
 
 import type * as i from 'types';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { ComboboxForm } from 'common/form/Combobox';
 import { Form, FormField } from 'common/form/Form';
@@ -15,16 +17,20 @@ import {
   DialogTrigger,
 } from 'common/interaction/Dialog';
 
-export type AddCardModalValues = {
-  category: i.Categories;
-  title: string;
-  description?: string;
-};
+const FormSchema = z.object({
+  category: z.custom<i.Categories>(),
+  title: z.string().min(1),
+  description: z.string().optional(),
+});
+
+export type AddCardForm = z.infer<typeof FormSchema>;
 
 export function AddCardModal() {
-  const form = useForm<AddCardModalValues>();
+  const form = useForm<AddCardForm>({
+    resolver: zodResolver(FormSchema),
+  });
 
-  function onSubmit(data: AddCardModalValues) {
+  function onSubmit(data: AddCardForm) {
     console.log(data);
   }
 
