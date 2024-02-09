@@ -40,7 +40,7 @@ type LaneContainerType = {
 
 const LaneItem = ({ className, children }: LaneItemType) => (
   <div
-    className={cn(`py-2 px-4 my-2 rounded-md border-2 border-slate-500 bg-slate-300`, className)}
+    className={cn(`py-2 px-4 my-2 rounded-md border-2 border-slate-800 bg-slate-700`, className)}
   >
     {children}
   </div>
