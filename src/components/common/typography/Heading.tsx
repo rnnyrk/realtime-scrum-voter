@@ -2,11 +2,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from 'utils';
 
-const headingVariants = cva(cn(`font-bold font-inter`), {
+const headingVariants = cva(cn(`font-medium font-inter`), {
   variants: {
     variant: {
       h1: 'text-primary text-2xl',
-      h2: 'text-black text-xl',
+      h2: 'text-primary text-xl',
       h3: 'text-secondary-dark text-lg',
       h4: 'font-normal text-secondary-dark text-md',
     },

@@ -4,7 +4,12 @@ import { Heading } from 'common/typography/Heading';
 const LaneContainer = ({ className, children, title }: LaneContainerType) => {
   return (
     <div className={cn(`flex flex-col flex-1 p-0`, className)}>
-      <Heading variant="h2">{title}</Heading>
+      <Heading
+        variant="h2"
+        className="px-3 py-2 bg-primary text-white rounded-md"
+      >
+        {title}
+      </Heading>
       {children}
     </div>
   );
@@ -12,7 +17,7 @@ const LaneContainer = ({ className, children, title }: LaneContainerType) => {
 
 type LaneContainerType = {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title: string;
 };
 
