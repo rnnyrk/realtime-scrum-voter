@@ -26,6 +26,7 @@
       "hooks": ["src/utils/hooks/index"],
       "hooks/*": ["src/utils/hooks/*"],
       "images/*": ["public/images/*"],
+      "party/*": ["party/*"],
       "styles": ["src/styles/index"],
       "styles/*": ["src/styles/*"],
       "store": ["src/store/index"],

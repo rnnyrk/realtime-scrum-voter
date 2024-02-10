@@ -1,4 +1,5 @@
 # project
+.partykit/
 dist/
 node_modules/
 out/
