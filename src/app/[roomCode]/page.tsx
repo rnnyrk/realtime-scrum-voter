@@ -5,7 +5,8 @@ import { useParams } from 'next/navigation';
 import { useRoom } from 'hooks';
 import { useRoomStore } from 'store/room';
 import { Lane } from 'common/layout/Lane';
-import { AddCardModal } from 'modules/modals/AddCardModal';
+import { AddCardModal } from 'modules/forms/AddCardModal';
+import { RoomOverview } from 'modules/room/RoomOverview';
 
 const Room = () => {
   const { roomCode } = useParams<{ roomCode: string }>();
@@ -15,8 +16,6 @@ const Room = () => {
     roomCode: roomCode as string,
     username: username!,
   });
-
-  console.log({ roomState });
 
   return (
     <section className="w-full flex justify-center py-4 space-x-2">
@@ -38,6 +37,10 @@ const Room = () => {
       />
 
       <AddCardModal />
+      <RoomOverview
+        roomCode={roomCode}
+        users={roomState?.users.map((user) => user.id)}
+      />
     </section>
   );
 };

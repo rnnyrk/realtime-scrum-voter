@@ -27,7 +27,6 @@ export function CreateRoom() {
   });
 
   function onSubmitRoom(values: CreateRoomForm) {
-    console.log({ onSubmitRoom: values });
     setUsername(values.username);
 
     if (values.roomCode) {
