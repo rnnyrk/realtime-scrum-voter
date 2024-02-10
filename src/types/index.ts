@@ -1,3 +1,2 @@
-export * from './next';
-
 export * from 'store/types';
+export * from 'party/socket';
