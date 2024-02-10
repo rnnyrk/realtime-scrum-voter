@@ -1,6 +1,5 @@
 import './global.css';
 
-import type * as i from 'types';
 import { Inter } from 'next/font/google';
 
 import { cn } from 'utils';
