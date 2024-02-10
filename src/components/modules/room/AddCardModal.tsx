@@ -37,18 +37,13 @@ export function AddCardModal() {
   function onSubmitCard(values: AddCardForm) {
     if (!room) return;
     const { dispatch, roomState } = room;
-    const currentCategory = room.roomState?.cards?.[values.category];
-
-    console.log({
-      values,
-      currentCategory,
-      roomState,
-    });
+    const currentCategory = roomState?.cards?.[values.category];
 
     dispatch({
       type: 'SetState',
       state: {
         cards: {
+          ...(roomState?.cards || {}),
           [values.category]: [
             ...(currentCategory || []),
             {
