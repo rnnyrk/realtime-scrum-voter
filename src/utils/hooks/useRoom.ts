@@ -1,42 +1,38 @@
+import type * as i from 'types';
 import { useState } from 'react';
-import { type RoomAction, type RoomState } from 'party/socket';
+import { useParams } from 'next/navigation';
+import { type Actions, type RoomState } from 'party/types';
 import usePartySocket from 'partysocket/react';
 
-export const useRoom = ({ username, roomCode }: UseRoomProps) => {
+import { useRoomStore } from 'store/room';
+
+export const useRoom = () => {
+  const { roomCode } = useParams<{ roomCode: string }>();
+  const { username } = useRoomStore();
+
   const [roomState, setRoomState] = useState<RoomState | null>(null);
 
   const socket = usePartySocket({
     host: process.env.NEXT_PUBLIC_SERVER_URL || '127.0.0.1:1999',
     room: roomCode,
-    id: username,
+    id: username!,
     onMessage(event: MessageEvent<string>) {
       setRoomState(JSON.parse(event.data));
     },
   });
 
-  const dispatch = (action: RoomAction) => {
+  const dispatch = (action: Actions) => {
     socket.send(JSON.stringify(action));
   };
 
-  // React.useEffect(() => {
-  //   if (process.env.NODE_ENV !== 'production') console.info(roomState);
-  //   if (roomState?.status) {
-  //     updateRoomStatus.mutateAsync({
-  //       roomCode,
-  //       status: {
-  //         status: roomState.status,
-  //       },
-  //     });
-  //   }
-  // }, [roomState?.status]);
+  const getCardsByCategory = (category: i.CardCategories) => {
+    return roomState?.cards?.[category];
+  };
 
   return {
-    roomState,
     dispatch,
+    getCardsByCategory,
+    roomCode,
+    roomState,
   };
-};
-
-type UseRoomProps = {
-  username?: string;
-  roomCode: string;
 };

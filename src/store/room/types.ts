@@ -1,12 +1,7 @@
-export type Categories = 'good' | 'bad' | 'actions' | 'ideas';
+import type * as i from 'types';
 
-export type Card = {
-  description: string;
-  id: string;
-  title: string;
-  votes: string[];
+export type RoomContextType = {
+  dispatch: (action: i.Actions) => void;
+  getCardsByCategory: (category: i.CardCategories) => i.Card[] | undefined;
+  roomState: i.RoomState | null;
 };
-
-export type CategoriesData = {
-  [key in Categories]: Card[];
-} | null;

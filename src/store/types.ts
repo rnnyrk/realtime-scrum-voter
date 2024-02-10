@@ -1,1 +1,1 @@
-export * from './categories/types';
+export * from './room/types';

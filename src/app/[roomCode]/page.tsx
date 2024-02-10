@@ -1,47 +1,41 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-
 import { useRoom } from 'hooks';
-import { useRoomStore } from 'store/room';
+import { RoomContext } from 'store/room';
 import { Lane } from 'common/layout/Lane';
-import { AddCardModal } from 'modules/forms/AddCardModal';
+import { AddCardModal } from 'modules/room/AddCardModal';
 import { RoomOverview } from 'modules/room/RoomOverview';
 
 const Room = () => {
-  const { roomCode } = useParams<{ roomCode: string }>();
-
-  const { username } = useRoomStore();
-  const { dispatch, roomState } = useRoom({
-    roomCode: roomCode as string,
-    username: username!,
-  });
+  const { dispatch, getCardsByCategory, roomCode, roomState } = useRoom();
 
   return (
-    <section className="w-full flex justify-center py-4 space-x-2">
-      <Lane.Container
-        title="Good"
-        category="good"
-      />
-      <Lane.Container
-        title="Bad"
-        category="bad"
-      />
-      <Lane.Container
-        title="Actions"
-        category="actions"
-      />
-      <Lane.Container
-        title="Ideas"
-        category="ideas"
-      />
+    <RoomContext.Provider value={{ getCardsByCategory, dispatch, roomState }}>
+      <section className="w-full flex justify-center py-4 space-x-2">
+        <Lane.Container
+          title="Good"
+          category="good"
+        />
+        <Lane.Container
+          title="Bad"
+          category="bad"
+        />
+        <Lane.Container
+          title="Actions"
+          category="actions"
+        />
+        <Lane.Container
+          title="Ideas"
+          category="ideas"
+        />
 
-      <AddCardModal />
-      <RoomOverview
-        roomCode={roomCode}
-        users={roomState?.users.map((user) => user.id)}
-      />
-    </section>
+        <AddCardModal />
+        <RoomOverview
+          roomCode={roomCode}
+          users={roomState?.users.map((user) => user.id)}
+        />
+      </section>
+    </RoomContext.Provider>
   );
 };
 

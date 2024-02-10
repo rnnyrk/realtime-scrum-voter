@@ -1,12 +1,7 @@
 import type * as Party from 'partykit/server';
 
-import {
-  initialRoom,
-  roomUpdater,
-  type RoomAction,
-  type RoomState,
-  type ServerAction,
-} from './socket';
+import { initialRoom, roomUpdater } from './reducer';
+import { type Actions, type RoomState, type ServerAction } from './types';
 
 export type ServerMessage = {
   state: RoomState;
@@ -18,7 +13,7 @@ export default class Server implements Party.Server {
   constructor(readonly party: Party.Room) {
     this.roomState = initialRoom();
     console.info('Room created:', party.id);
-    console.info('Room target', this.roomState.state);
+    console.info('Room cards', this.roomState.cards);
   }
 
   onConnect(connection: Party.Connection, ctx: Party.ConnectionContext) {
@@ -49,7 +44,7 @@ export default class Server implements Party.Server {
 
   onMessage(message: string, sender: Party.Connection) {
     const action: ServerAction = {
-      ...(JSON.parse(message) as RoomAction),
+      ...(JSON.parse(message) as Actions),
       user: { id: sender.id },
     };
 

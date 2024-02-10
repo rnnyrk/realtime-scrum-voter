@@ -1,13 +1,17 @@
 'use client';
 
 import type * as i from 'types';
+import { useContext } from 'react';
 
-import { useCategoryData } from 'store/categories';
+import { RoomContext } from 'store/room';
 import { cn } from 'utils';
 import { Heading } from 'common/typography/Heading';
 
 const LaneContainer = ({ className, children, category, title }: LaneContainerType) => {
-  const categoryData = useCategoryData(category);
+  const room = useContext(RoomContext);
+  const categoryData = room!.getCardsByCategory(category);
+
+  console.log({ categoryData });
 
   return (
     <div className={cn(`flex flex-col flex-1 p-0`, className)}>
@@ -34,13 +38,13 @@ const LaneContainer = ({ className, children, category, title }: LaneContainerTy
 type LaneContainerType = {
   className?: string;
   children?: React.ReactNode;
-  category: i.Categories;
+  category: i.CardCategories;
   title: string;
 };
 
 const LaneItem = ({ className, children }: LaneItemType) => (
   <div
-    className={cn(`py-2 px-4 my-2 rounded-md border-2 border-slate-800 bg-slate-700`, className)}
+    className={cn('py-2 px-4 my-2 rounded-md border-2 border-slate-800 bg-slate-700', className)}
   >
     {children}
   </div>

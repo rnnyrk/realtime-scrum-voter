@@ -27,6 +27,6 @@ export function RoomOverview({ roomCode, users }: RoomOverviewProps) {
 }
 
 type RoomOverviewProps = {
-  roomCode?: string;
-  users?: string[];
+  roomCode: string;
+  users: string[] | undefined;
 };

@@ -1,11 +1,12 @@
 'use client';
 
 import type * as i from 'types';
+import { useContext } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useCategoriesStore } from 'store/categories';
+import { RoomContext } from 'store/room';
 import { ComboboxForm } from 'common/form/Combobox';
 import { Form, FormField } from 'common/form/Form';
 import { InputForm } from 'common/form/Input';
@@ -19,7 +20,7 @@ import {
 } from 'common/interaction/Dialog';
 
 const FormSchema = z.object({
-  category: z.custom<i.Categories>(),
+  category: z.custom<i.CardCategories>(),
   title: z.string().min(1),
   description: z.string().optional(),
 });
@@ -27,25 +28,36 @@ const FormSchema = z.object({
 export type AddCardForm = z.infer<typeof FormSchema>;
 
 export function AddCardModal() {
-  const { data, setData } = useCategoriesStore();
+  const room = useContext(RoomContext);
 
   const form = useForm<AddCardForm>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmitCard(values: AddCardForm) {
-    console.log(values);
+    if (!room) return;
+    const { dispatch, roomState } = room;
+    const currentCategory = room.roomState?.cards?.[values.category];
 
-    const currentCategory = data?.[values.category];
+    console.log({
+      values,
+      currentCategory,
+      roomState,
+    });
 
-    setData({
-      [values.category]: [
-        ...(currentCategory || []),
-        {
-          title: values.title,
-          description: values.description,
+    dispatch({
+      type: 'SetState',
+      state: {
+        cards: {
+          [values.category]: [
+            ...(currentCategory || []),
+            {
+              title: values.title,
+              description: values.description,
+            },
+          ],
         },
-      ],
+      },
     });
   }
 

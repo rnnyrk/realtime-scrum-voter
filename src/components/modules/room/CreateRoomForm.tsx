@@ -13,20 +13,20 @@ import { Button } from 'common/interaction/Button';
 
 const FormSchema = z.object({
   username: z.string().min(1),
-  roomCode: z.string().min(6).max(6).optional(),
+  roomCode: z.string().max(6).optional(),
 });
 
-export type CreateRoomForm = z.infer<typeof FormSchema>;
+export type CreateRoomFormType = z.infer<typeof FormSchema>;
 
-export function CreateRoom() {
+export function CreateRoomForm() {
   const router = useRouter();
   const { setUsername } = useRoomStore();
 
-  const form = useForm<CreateRoomForm>({
+  const form = useForm<CreateRoomFormType>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmitRoom(values: CreateRoomForm) {
+  function onSubmitRoom(values: CreateRoomFormType) {
     setUsername(values.username);
 
     if (values.roomCode) {
