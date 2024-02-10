@@ -33,7 +33,7 @@ export function AddCardModal() {
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(values: AddCardForm) {
+  function onSubmitCard(values: AddCardForm) {
     console.log(values);
 
     const currentCategory = data?.[values.category];
@@ -65,7 +65,7 @@ export function AddCardModal() {
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmitCard)}>
             <FormField
               control={form.control}
               name="category"
@@ -114,7 +114,7 @@ export function AddCardModal() {
             <Button
               type="submit"
               className="mt-8"
-              disabled={Object.keys(form.formState.errors).length > 0}
+              disabled={!form.formState.isValid}
             >
               Add card
             </Button>
