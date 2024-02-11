@@ -24,6 +24,10 @@ export function CreateRoomForm() {
 
   const form = useForm<CreateRoomFormType>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      username: '',
+      roomCode: '',
+    },
   });
 
   function onSubmitRoom(values: CreateRoomFormType) {

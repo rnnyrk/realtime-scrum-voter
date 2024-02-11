@@ -32,12 +32,19 @@ export function AddCardModal() {
 
   const form = useForm<AddCardForm>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      category: undefined,
+      title: '',
+      description: '',
+    },
   });
 
   function onSubmitCard(values: AddCardForm) {
     if (!room) return;
     const { dispatch, roomState } = room;
     const currentCategory = roomState?.cards?.[values.category];
+
+    const cardId = Math.random().toString(36).substring(2, 9);
 
     dispatch({
       type: 'SetState',
@@ -47,6 +54,7 @@ export function AddCardModal() {
           [values.category]: [
             ...(currentCategory || []),
             {
+              id: `card_${cardId}`,
               title: values.title,
               description: values.description,
             },
@@ -54,6 +62,8 @@ export function AddCardModal() {
         },
       },
     });
+
+    form.reset();
   }
 
   return (
